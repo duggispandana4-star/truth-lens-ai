@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10192b">
+  <meta name="description" content="Examine claims with evidence, context, and transparent uncertainty.">
+  <title>Truth Lens — See beyond the headlines</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Truth Lens home">
+      <span class="brand-mark"><i data-lucide="scan-eye"></i></span>
+      <span>truth<span class="brand-light">lens</span></span>
+    </a>
+    <button id="menu-toggle" class="icon-button menu-toggle" aria-label="Open navigation" aria-expanded="false">
+      <i data-lucide="menu"></i>
+    </button>
+    <nav id="main-nav" class="nav-links" aria-label="Main navigation">
+      <a href="#how-it-works">How it works</a>
+      <a href="#recent">Recent checks</a>
+      <a href="#about">About</a>
+      <a class="nav-cta" href="#analyzer">Check a claim <i data-lucide="arrow-up-right"></i></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> A clearer view of what you read</div>
+        <h1>See beyond<br>the <span>headlines.</span></h1>
+        <p>Pause, question, and explore what’s being reported. Search related news for free, or connect published fact-check reviews — without pretending uncertainty doesn't exist.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#analyzer">Analyze a claim <i data-lucide="arrow-down"></i></a>
+          <a class="text-link" href="#how-it-works">How it works <i data-lucide="move-up-right"></i></a>
+        </div>
+        <div class="trust-note"><i data-lucide="shield-check"></i><span>Evidence first. Uncertainty, always.</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-orbit orbit-outer"></div><div class="art-orbit orbit-inner"></div>
+        <div class="lens"><div class="lens-glass"><span class="lens-star">✳</span><span class="lens-line"></span><span class="lens-line short"></span><span class="lens-pill"></span></div></div>
+        <div class="floating-card card-source"><span class="mini-icon"><i data-lucide="file-check-2"></i></span><span><b>Published reviews</b><small>Sources, not guesses</small></span><i data-lucide="arrow-up-right"></i></div>
+        <div class="floating-card card-signal"><span class="signal-dot"></span><span><b>Room for nuance</b><small>Evidence can be mixed</small></span></div>
+        <div class="art-caption">A more thoughtful way to read</div>
+      </div>
+    </section>
+
+    <section id="analyzer" class="analyzer-section">
+      <div class="section-heading">
+        <div><div class="eyebrow">Start with a question</div><h2>What have you heard?</h2></div>
+        <span class="privacy-chip"><i data-lucide="lock-keyhole"></i> Saved only on this demo</span>
+      </div>
+      <div class="analyzer-card">
+        <div class="input-tabs" role="tablist" aria-label="Analysis input type">
+          <button class="input-tab active" id="claim-tab" role="tab" aria-selected="true" aria-controls="claim-panel"><i data-lucide="message-square-quote"></i> A claim</button>
+          <button class="input-tab" id="article-tab" role="tab" aria-selected="false" aria-controls="article-panel"><i data-lucide="link-2"></i> An article link</button>
+        </div>
+        <form id="analysis-form">
+          <div id="claim-panel" class="input-panel" role="tabpanel" aria-labelledby="claim-tab">
+            <label class="sr-only" for="claim-input">Enter a headline or claim to check</label>
+            <textarea id="claim-input" maxlength="6000" placeholder="Paste a headline, statement, or a few sentences you'd like to examine..." rows="5"></textarea>
+            <div class="input-meta"><span>Be specific — include names, places, or dates if you can.</span><span><b id="char-count">0</b> / 6,000</span></div>
+          </div>
+          <div id="article-panel" class="input-panel hidden" role="tabpanel" aria-labelledby="article-tab">
+            <label class="field-label" for="article-url">Public article URL</label>
+            <div class="url-field"><i data-lucide="globe-2"></i><input id="article-url" type="url" placeholder="https://example.com/news/article" autocomplete="url"></div>
+            <p class="field-hint">Public pages only. We don't bypass logins, paywalls, redirects, or site restrictions. If no claim is supplied, we select a sentence excerpt — not a verified summary.</p>
+            <label class="field-label optional-label" for="url-claim-input">Specific claim to check <span>Optional — otherwise we'll analyze the retrieved article text</span></label>
+            <textarea id="url-claim-input" maxlength="6000" rows="3" placeholder="What statement in this article should we focus on?"></textarea>
+          </div>
+          <div class="form-bottom"><div class="examples"><span>Try:</span><button type="button" class="example-chip" data-claim="The Great Wall of China is visible from the Moon with the naked eye.">Moon &amp; the Great Wall</button><button type="button" class="example-chip" data-claim="Humans use only 10% of their brains.">The 10% brain myth</button></div><button class="button button-primary analyze-button" id="analyze-button" type="submit">Analyze claim <i data-lucide="scan-search"></i></button></div>
+        </form>
+      </div>
+      <div class="notice"><i data-lucide="info"></i><p><b>A note on accuracy</b> Free news results are related articles, not fact-checks or proof. Add a Google Fact Check Tools API key to search published reviews. Ratings are publishers' assessments, not guarantees of truth.</p></div>
+    </section>
+
+    <section id="results-section" class="results-section hidden" aria-live="polite">
+      <div class="results-heading"><div><div class="eyebrow">Your analysis</div><h2>Here’s what we found</h2></div><button class="text-link" id="new-check"><i data-lucide="plus"></i> New check</button></div>
+      <div id="result-card" class="result-card"></div>
+    </section>
+
+    <section id="how-it-works" class="how-section">
+      <div class="section-heading"><div><div class="eyebrow">Thoughtful by design</div><h2>Clarity, in three steps.</h2></div><p class="heading-aside">No magic verdicts. Just useful context to help you make up your own mind.</p></div>
+      <div class="steps-grid">
+        <article class="step-card"><span class="step-number">01</span><div class="step-icon"><i data-lucide="text-search"></i></div><h3>Share what you saw</h3><p>Paste a claim or provide a public article link. Specific wording helps surface more relevant reviews.</p></article>
+        <article class="step-card"><span class="step-number">02</span><div class="step-icon"><i data-lucide="library-big"></i></div><h3>Explore the coverage</h3><p>Free related-news links work out of the box. Connect the optional fact-check API to find published reviews.</p></article>
+        <article class="step-card"><span class="step-number">03</span><div class="step-icon"><i data-lucide="brain"></i></div><h3>Think with context</h3><p>Ratings may disagree, miss context, or be outdated. Read the underlying review and keep uncertainty in view.</p></article>
+      </div>
+    </section>
+
+    <section id="recent" class="history-section">
+      <div class="section-heading"><div><div class="eyebrow">Your local activity</div><h2>Recent checks</h2></div><button id="refresh-history" class="icon-button" aria-label="Refresh recent checks"><i data-lucide="refresh-cw"></i></button></div>
+      <div id="history-list" class="history-list"><div class="empty-state"><span class="empty-icon"><i data-lucide="inbox"></i></span><b>No checks yet</b><p>Your analyses will show up here on this device.</p></div></div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="about-icon"><i data-lucide="scan-eye"></i></div><div><div class="eyebrow">About Truth Lens</div><h2>Better questions make a better feed.</h2><p>Truth Lens is a learning project for slowing down the scroll. It makes published fact-checks easier to explore — and makes the limits of an automated check visible, too.</p></div><div class="about-side"><span><i data-lucide="heart-handshake"></i> Built for curious minds</span><span><i data-lucide="circle-help"></i> Not a truth machine</span></div>
+    </section>
+  </main>
+
+  <footer id="contact" class="footer"><a class="brand" href="#"><span class="brand-mark"><i data-lucide="scan-eye"></i></span><span>truth<span class="brand-light">lens</span></span></a><p>Look closer. Think clearly.</p><div class="footer-links"><a href="#about">About</a><a href="/docs">API docs</a><a href="mailto:hello@truthlens.local">Contact</a></div><small>Truth Lens is a student project. Always read original sources and use your judgment.</small></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
